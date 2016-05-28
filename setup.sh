@@ -40,9 +40,8 @@ apt-get --force-yes -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="
 # apt clean up
 apt-get clean
 
-# enable 80/443 ports (ufw)
-ufw allow 80
-ufw allow 443
+# enable 21 ports (ufw)
+ufw allow 21
 
 if [ ! -z "$1" ]; then
     user="$1"
@@ -54,8 +53,7 @@ fi
 
 cat <<TORRC > /etc/tor/torrc
 # Port for tor
-# ORPort 443
-ORPort 80
+ORPort 21
 
 # as a tor relay
 Exitpolicy reject *:*
