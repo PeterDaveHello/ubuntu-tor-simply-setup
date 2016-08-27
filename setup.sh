@@ -3,7 +3,7 @@
 set -x
 {
 
-StartTimestamp="`date +%s`"
+StartTimestamp="$(date +%s)"
 
 # confirm permission
 if [ "$(id -u)" != "0" ]; then
@@ -20,7 +20,7 @@ if [ -r /etc/apt/sources.list.d/official-package-repositories.list ]; then
 else
     apt_source_list=/etc/apt/sources.list
 fi
-ubuntu_version="`grep ^deb $apt_source_list | grep ubuntu --color=never | awk '{print $3}' |  sed -E 's/(-[a-z]+)//g' | sort | uniq -c | sort -r | head -n 1 | awk '{print $2}'`"
+ubuntu_version="$(grep ^deb $apt_source_list | grep ubuntu --color=never | awk '{print $3}' |  sed -E 's/(-[a-z]+)//g' | sort | uniq -c | sort -r | head -n 1 | awk '{print $2}')"
 
 # setup apt source
 echo "deb http://deb.torproject.org/torproject.org $ubuntu_version main" > /etc/apt/sources.list.d/tor.list
@@ -86,7 +86,7 @@ else
     cat /var/log/tor/log
 fi
 
-EndTimestamp="`date +%s`"
+EndTimestamp="$(date +%s)"
 
-echo -e "\nTotal time spent for this setup is $(($EndTimestamp - $StartTimestamp)) second(s)"
+echo -e "\nTotal time spent for this setup is $((EndTimestamp - StartTimestamp)) second(s)"
 }
