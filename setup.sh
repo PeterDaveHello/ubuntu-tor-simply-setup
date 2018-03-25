@@ -55,12 +55,15 @@ fi
 cat <<TORRC > /etc/tor/torrc
 # Port for tor
 # ORPort 25
+# ORPort [ipv6:address]:25 # https://trac.torproject.org/projects/tor/wiki/doc/IPv6RelayHowto
 # DirPort 465
 ORPort 21
 DirPort 443
 
 # as a tor relay
 Exitpolicy reject *:*
+ExitPolicy reject6 *:*
+IPv6Exit 1
 
 # as a tor exit
 # ExitPolicy accept *:80,accept *:443,accept *:22,accept *:21,accept *:110,accept *:143,accept *:873,accept *:993,accept *:995,accept *:9418,reject *:*
