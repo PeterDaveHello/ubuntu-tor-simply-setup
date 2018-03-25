@@ -28,7 +28,7 @@ echo "deb http://deb.torproject.org/torproject.org $ubuntu_version main" > /etc/
 apt-key adv --keyserver keyserver.ubuntu.com --recv 74A941BA219EC810
 
 # update apt meta info
-apt-get update
+apt update
 
 # upgrade system first
 apt-get --force-yes -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
@@ -84,16 +84,14 @@ echo "Now sleep for 10 seconds to wait tor bootstraping ..."
 sleep 10
 
 echo "Try to grab success message"
-grep 'Self-testing indicates your ORPort is reachable from the outside. Excellent.' /var/log/tor/log &> /dev/null
-
-if [ "$?" = "0" ]; then
+if grep -q 'Self-testing indicates your ORPort is reachable from the outside. Excellent.' /var/log/tor/log &> /dev/null; then
     echo "Congratulations! Your tor relay was setup with success!"
 else
     echo "I'm not sure if everything okay, please check the log file by yourself!"
-    cat /var/log/tor/log
+    tail -n 15 /var/log/tor/log
 fi
 
 EndTimestamp="$(date +%s)"
 
-echo -e "\nTotal time spent for this setup is $((EndTimestamp - StartTimestamp)) second(s)"
+echo -e "\\nTotal time spent for this setup is $((EndTimestamp - StartTimestamp)) second(s)"
 }
