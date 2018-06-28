@@ -7,8 +7,8 @@ StartTimestamp="$(date +%s)"
 
 # confirm permission
 if [ "$(id -u)" != "0" ]; then
-   echo "Please give me root permission" 1>&2
-   exit 1
+    echo "Please give me root permission" 1>&2
+    exit 1
 fi
 
 # binary PATH
@@ -20,7 +20,7 @@ if [ -r /etc/apt/sources.list.d/official-package-repositories.list ]; then
 else
     apt_source_list=/etc/apt/sources.list
 fi
-ubuntu_version="$(grep ^deb $apt_source_list | grep ubuntu --color=never | awk '{print $3}' |  sed -E 's/(-[a-z]+)//g' | sort | uniq -c | sort -Vr | head -n 1 | awk '{print $2}')"
+ubuntu_version="$(grep ^deb $apt_source_list | grep ubuntu --color=never | awk '{print $3}' | sed -E 's/(-[a-z]+)//g' | sort | uniq -c | sort -Vr | head -n 1 | awk '{print $2}')"
 
 # setup apt source
 echo "deb http://deb.torproject.org/torproject.org $ubuntu_version main" > /etc/apt/sources.list.d/tor.list
@@ -52,7 +52,7 @@ else
     contact="anonymous@ubuntu-tor-simply-setup.script.by.PeterDaveHello"
 fi
 
-cat <<TORRC > /etc/tor/torrc
+cat << TORRC > /etc/tor/torrc
 # Port for tor
 # ORPort 25
 # ORPort [ipv6:address]:25 # https://trac.torproject.org/projects/tor/wiki/doc/IPv6RelayHowto
