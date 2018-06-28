@@ -7,8 +7,8 @@ StartTimestamp="$(date +%s)"
 
 # confirm permission
 if [ "$(id -u)" != "0" ]; then
-    echo "Please give me root permission" 1>&2
-    exit 1
+  echo "Please give me root permission" 1>&2
+  exit 1
 fi
 
 # binary PATH
@@ -16,9 +16,9 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 
 # determinate ubuntu version
 if [ -r /etc/apt/sources.list.d/official-package-repositories.list ]; then
-    apt_source_list=/etc/apt/sources.list.d/official-package-repositories.list
+  apt_source_list=/etc/apt/sources.list.d/official-package-repositories.list
 else
-    apt_source_list=/etc/apt/sources.list
+  apt_source_list=/etc/apt/sources.list
 fi
 ubuntu_version="$(grep ^deb $apt_source_list | grep ubuntu --color=never | awk '{print $3}' | sed -E 's/(-[a-z]+)//g' | sort | uniq -c | sort -Vr | head -n 1 | awk '{print $2}')"
 
@@ -45,11 +45,11 @@ ufw allow 21
 ufw allow 443
 
 if [ ! -z "$1" ]; then
-    user="$1"
-    contact="$2"
+  user="$1"
+  contact="$2"
 else
-    user="anonymousByPDH"
-    contact="anonymous@ubuntu-tor-simply-setup.script.by.PeterDaveHello"
+  user="anonymousByPDH"
+  contact="anonymous@ubuntu-tor-simply-setup.script.by.PeterDaveHello"
 fi
 
 cat << TORRC > /etc/tor/torrc
@@ -85,10 +85,10 @@ sleep 10
 
 echo "Try to grab success message"
 if grep -q 'Self-testing indicates your ORPort is reachable from the outside. Excellent.' /var/log/tor/log &> /dev/null; then
-    echo "Congratulations! Your tor relay was setup with success!"
+  echo "Congratulations! Your tor relay was setup with success!"
 else
-    echo "I'm not sure if everything okay, please check the log file by yourself!"
-    tail -n 15 /var/log/tor/log
+  echo "I'm not sure if everything okay, please check the log file by yourself!"
+  tail -n 15 /var/log/tor/log
 fi
 
 EndTimestamp="$(date +%s)"
