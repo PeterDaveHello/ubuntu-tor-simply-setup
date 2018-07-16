@@ -1,0 +1,35 @@
+language: generic
+sudo: required
+
+git:
+  depth: 5
+
+matrix:
+  include:
+  - env:
+      - task=shellcheck
+    before_install:
+      - bash --version
+      - shellcheck --version
+    script:
+      - bash -n setup.sh
+      - shellcheck -s bash setup.sh
+
+  - env:
+      - task=ubuntu1404
+    script:
+    - sudo ./setup.sh
+
+  - env:
+      - task=ubuntu1604
+    services:
+    - docker
+    script:
+    - docker run -i --rm -v "${PWD}:/ci-temp/" ubuntu:16.04 bash -c "/ci-temp/setup.sh"
+
+  - env:
+      - task=ubuntu1804
+    services:
+    - docker
+    script:
+    - docker run -i --rm -v "${PWD}:/ci-temp/" ubuntu:18.04 bash -c "/ci-temp/setup.sh"
