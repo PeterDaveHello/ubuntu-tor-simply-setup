@@ -15,6 +15,8 @@ fi
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 
 TorLogPath="${TorLogPath:-/var/log/tor/notices.log}"
+user="${user:-anonymous}"
+contact="${contact:-anonymous@anonymous}"
 
 # determinate ubuntu version
 if [ -r /etc/apt/sources.list.d/official-package-repositories.list ]; then
@@ -45,14 +47,6 @@ apt-get clean
 # enable 21, 443 ports (ufw)
 ufw allow 21
 ufw allow 443
-
-if [ ! -z "$1" ]; then
-  user="$1"
-  contact="$2"
-else
-  user="anonymousByPDH"
-  contact="anonymous@ubuntu-tor-simply-setup.script.by.PeterDaveHello"
-fi
 
 cat << TORRC > /etc/tor/torrc
 # Port for tor
