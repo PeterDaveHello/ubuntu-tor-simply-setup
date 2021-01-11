@@ -15,6 +15,8 @@ fi
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 
 TorLogPath="${TorLogPath:-/var/log/tor/notices.log}"
+ORPort="${ORPort:-21}"
+DirPort="${DirPort:-443}"
 user="${user:-anonymous}"
 contact="${contact:-anonymous@anonymous}"
 
@@ -45,16 +47,16 @@ apt-get --force-yes -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="
 apt-get clean
 
 # enable 21, 443 ports (ufw)
-ufw allow 21
-ufw allow 443
+ufw allow "$ORPort"
+ufw allow "$DirPort"
 
 cat << TORRC > /etc/tor/torrc
 # Port for tor
 # ORPort 25
 # ORPort [ipv6:address]:25 # https://trac.torproject.org/projects/tor/wiki/doc/IPv6RelayHowto
 # DirPort 465
-ORPort 21
-DirPort 443
+ORPort $ORPort
+DirPort $DirPort
 
 # as a tor relay
 Exitpolicy reject *:*
