@@ -14,6 +14,8 @@ fi
 # binary PATH
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 
+TorLogPath="${TorLogPath:-/var/log/tor/notices.log}"
+
 # determinate ubuntu version
 if [ -r /etc/apt/sources.list.d/official-package-repositories.list ]; then
   apt_source_list=/etc/apt/sources.list.d/official-package-repositories.list
@@ -76,6 +78,7 @@ ContactInfo $contact
 RelayBandwidthRate 1 MBytes
 RelayBandwidthBurst 2 MBytes
 
+Log notice file $TorLogPath
 TORRC
 
 service tor restart
@@ -84,11 +87,11 @@ echo "Now sleep for 10 seconds to wait tor bootstraping ..."
 sleep 10
 
 echo "Try to grab success message"
-if grep -q 'Self-testing indicates your ORPort is reachable from the outside. Excellent.' /var/log/tor/log &> /dev/null; then
+if grep -q 'Self-testing indicates your ORPort is reachable from the outside. Excellent.' "$TorLogPath" &> /dev/null; then
   echo "Congratulations! Your tor relay was setup with success!"
 else
   echo "I'm not sure if everything okay, please check the log file by yourself!"
-  tail -n 15 /var/log/tor/log
+  tail -n 15 "$TorLogPath"
 fi
 
 EndTimestamp="$(date +%s)"
