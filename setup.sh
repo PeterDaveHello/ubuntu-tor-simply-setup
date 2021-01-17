@@ -64,7 +64,7 @@ ExitPolicy reject6 *:*
 IPv6Exit 1
 
 # as a tor exit
-# ExitPolicy accept *:80,accept *:443,accept *:22,accept *:21,accept *:110,accept *:143,accept *:873,accept *:993,accept *:995,accept *:9418,reject *:*
+# ExitPolicy accept *:53,accept *:80,accept *:443,accept *:22,accept *:21,accept *:110,accept *:143,accept *:853,accept *:873,accept *:993,accept *:995,accept *:9418,reject *:*
 
 # contact info
 Nickname $user
