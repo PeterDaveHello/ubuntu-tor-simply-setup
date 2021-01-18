@@ -17,6 +17,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 TorLogPath="${TorLogPath:-/var/log/tor/notices.log}"
 ORPort="${ORPort:-21}"
 DirPort="${DirPort:-443}"
+DNSPort="${DNSPort:-8853}"
 user="${user:-anonymous}"
 contact="${contact:-anonymous@anonymous}"
 
@@ -57,6 +58,7 @@ cat << TORRC > /etc/tor/torrc
 # DirPort 465
 ORPort $ORPort
 DirPort $DirPort
+DNSPort $DNSPort
 
 # as a tor relay
 Exitpolicy reject *:*
