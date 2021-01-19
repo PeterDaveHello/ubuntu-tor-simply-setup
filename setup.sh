@@ -15,6 +15,7 @@ fi
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 
 TorLogPath="${TorLogPath:-/var/log/tor/notices.log}"
+Sandbox="${Sandbox:-1}"
 ORPort="${ORPort:-21}"
 DirPort="${DirPort:-443}"
 DNSPort="${DNSPort:-8853}"
@@ -76,6 +77,7 @@ ContactInfo $contact
 RelayBandwidthRate 1 MBytes
 RelayBandwidthBurst 2 MBytes
 
+Sandbox $Sandbox
 Log notice file $TorLogPath
 TORRC
 
